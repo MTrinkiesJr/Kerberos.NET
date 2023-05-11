@@ -979,7 +979,7 @@ namespace Kerberos.NET.Client
             // or if it's renewable but the ticket expiration is already greater
             // than the entire renewal window (you'll just get the same ticket back)
 
-            DateTimeOffset ttlRenew;
+            DateTimeOffset ttlRenew = default;
 
             if (renewUntil > DateTimeOffset.MinValue)
             {

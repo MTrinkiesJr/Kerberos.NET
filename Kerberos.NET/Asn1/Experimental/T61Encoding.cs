@@ -15,6 +15,7 @@ namespace System.Security.Cryptography.Asn1
     [ExcludeFromCodeCoverage]
     internal class T61Encoding : Encoding
     {
+        
         private static readonly Encoding Utf8Encoding = new UTF8Encoding(false, throwOnInvalidBytes: true);
         private static readonly Encoding Latin1Encoding = GetEncoding("iso-8859-1");
 
@@ -36,7 +37,7 @@ namespace System.Security.Cryptography.Asn1
 #if netcoreapp || uap || NETCOREAPP || netstandard21
         public override int GetByteCount(ReadOnlySpan<char> chars)
         {
-            return s_utf8Encoding.GetByteCount(chars);
+            return Utf8Encoding.GetByteCount(chars);
         }
 #endif
 
@@ -79,11 +80,11 @@ namespace System.Security.Cryptography.Asn1
         {
             try
             {
-                return s_utf8Encoding.GetCharCount(bytes);
+                return Utf8Encoding.GetCharCount(bytes);
             }
             catch (DecoderFallbackException)
             {
-                return s_latin1Encoding.GetCharCount(bytes);
+                return Utf8Encoding.GetCharCount(bytes);
             }
         }
 #endif
